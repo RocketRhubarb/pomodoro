@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro/widgets/countdown_clock.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,8 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     setState(() {
-      _totalTime = Duration(seconds: 1);
-      _tick = Duration(milliseconds: 100);
+      _totalTime = Duration(minutes: 25);
+      _tick = Duration(milliseconds: 500);
       _remainingTime = _totalTime;
     });
   }
@@ -68,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Remaing time: ${_remainingTime.inMilliseconds} milliseconds'),
+            CountdownClock(time: _remainingTime),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

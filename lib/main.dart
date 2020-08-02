@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pomodoro/widgets/countdown_clock.dart';
+import './widgets/countdown_clock.dart';
 
 void main() {
   runApp(MyApp());

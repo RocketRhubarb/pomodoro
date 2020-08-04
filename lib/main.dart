@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pomodoro/widgets/circular_indicator.dart';
 import './widgets/countdown_clock.dart';
 
 void main() {

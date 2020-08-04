@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import './widgets/countdown_clock.dart';
+import 'widgets/circular_progress.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,6 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool timerPresent() => _timer != null;
 
+  double fractionElapsed() {
+    return 1.0 -
+        _remainingTime.inMilliseconds.toDouble() /
+            _totalTime.inMilliseconds.toDouble();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +94,25 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CountdownClock(time: _remainingTime),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Stack(
+                children: <Widget>[
+                  CircularProgress(
+                    fractionElapsed: fractionElapsed(),
+                    progressColor: Colors.deepOrange,
+                    lineColor: Colors.blueGrey[300],
+                    width: 10.0,
+                  ),
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CountdownClock(time: _remainingTime),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[

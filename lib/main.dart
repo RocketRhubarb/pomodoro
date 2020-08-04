@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro/widgets/circular_indicator.dart';
 import './widgets/countdown_clock.dart';
 
 void main() {
@@ -32,11 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    setState(() {
-      _totalTime = Duration(minutes: 25);
-      _tick = Duration(milliseconds: 500);
-      _remainingTime = _totalTime;
-    });
+    super.initState();
+    _totalTime = Duration(minutes: 25);
+    _tick = Duration(milliseconds: 500);
+    _remainingTime = _totalTime;
   }
 
   void updateTime() {

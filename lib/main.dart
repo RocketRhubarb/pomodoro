@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Duration _totalTime;
   Duration _tick;
   Duration _remainingTime;
+  Timer _timer;
 
   @override
   void initState() {
@@ -46,13 +47,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void startCountdown() {
-    Timer.periodic(_tick, (timer) {
-      if (_remainingTime.inMilliseconds <= 0) {
-        timer.cancel();
-      } else {
-        updateTime();
-      }
-    });
+    if (timerPresent()) {
+      setState(() {
+        _timer.cancel();
+        _timer = null;
+      });
+    } else {
+      _timer = Timer.periodic(_tick, (tmr) {
+        if (_remainingTime.inMilliseconds <= 0) {
+          tmr.cancel();
+        } else {
+          updateTime();
+        }
+      });
+    }
   }
 
   void resetTime() {
@@ -60,6 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _remainingTime = _totalTime;
     });
   }
+
+  bool timerPresent() => _timer != null;
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: startCountdown,
-                  child: Text('start'),
-                ),
+                    onPressed: startCountdown,
+                    child: timerPresent() ? Text('pause') : Text('start')),
                 RaisedButton(
                   onPressed: resetTime,
                   child: Text('reset'),
